@@ -10,15 +10,14 @@ class PixelController {
     this.list = [];
     this.dir = 1; // go right
     this.enemy = {
-      width: 16,
-      height: 10,
-      padding: 4
+      img: assetFactory(grids.easy1),
+      width: 22,
+      height: 14
     };
 
     // center the grid
-    let gridWidth = this.enemy.padding * 2 + (this.cols * (this.enemy.width * 2 + this.enemy.padding));
+    let gridWidth = this.cols * (this.enemy.width * 2);
     let xstart = (width - gridWidth) / 2;
-    console.log(xstart);
 
     for (let i = 0; i < grid.length; i++) {
       if (grid[i])
@@ -27,8 +26,8 @@ class PixelController {
           floor(i / this.cols),
           this.enemy.width,
           this.enemy.height,
-          this.enemy.padding,
-          xstart
+          xstart,
+          this.enemy.img
         ));
     }
 
@@ -81,28 +80,29 @@ class PixelController {
 }
 
 class Pixel {
-  constructor(col = 0, row = 0, w = 16, h = 10, pad = 5, xstart) {
+  constructor(col = 0, row = 0, w = 16, h = 10, xstart, img) {
     this.w = w;
     this.h = h;
-    this.pad = pad;
     this.pos = createVector(
-      xstart + this.pad + (this.pad + this.w) + (this.w * 2 + this.pad) * col,
-      this.pad + (this.h * 2 + this.pad) * row
+      xstart + this.w + (this.w * 2) * col,
+      this.h * 2 * row
     );
     this.speed = 3;
+    this.img = img;
   }
   show() {
     // fill(255, 0, 200);
     // console.log(`x:${this.pos.x}, y:${this.pos.y}`);
-    rect(this.pos.x, this.pos.y, this.w * 2, this.h * 2);
+    // rect(this.pos.x, this.pos.y, this.w * 2, this.h * 2);
+    image(this.img, this.pos.x, this.pos.y);
   }
   move(dir) {
     this.pos.x += dir * this.speed;
   }
   getLimit(side) {
     switch (side) {
-      case "left": return this.pos.x - this.w - this.pad;
-      case "right": return this.pos.x + this.h + this.pad;
+      case "left": return this.pos.x - this.w;
+      case "right": return this.pos.x + this.h;
     }
   }
   isOutOfBounds() {

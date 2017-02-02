@@ -16,6 +16,7 @@ let Invaders = function(opt = {}) {
 	  createCanvas(800, 400);
 	  rectMode(CENTER);
 	  ellipseMode(CENTER);
+		imageMode(CENTER);
 	  // frameRate(20);
 	  fill(settings.enemyColor);
 		noStroke();
@@ -35,6 +36,7 @@ let Invaders = function(opt = {}) {
 		if (ship.hits(enemies)) {
 			reset();
 		}
+		assetFactory(grids.easy2);
 	}
 
 
