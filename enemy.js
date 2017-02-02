@@ -11,8 +11,14 @@ class PixelController {
     this.dir = 1; // go right
     this.enemy = {
       width: 16,
-      height: 10
+      height: 10,
+      padding: 4
     };
+
+    // center the grid
+    let gridWidth = this.enemy.padding * 2 + (this.cols * (this.enemy.width * 2 + this.enemy.padding));
+    let xstart = (width - gridWidth) / 2;
+    console.log(xstart);
 
     for (let i = 0; i < grid.length; i++) {
       if (grid[i])
@@ -20,7 +26,9 @@ class PixelController {
           i % this.cols,
           floor(i / this.cols),
           this.enemy.width,
-          this.enemy.height
+          this.enemy.height,
+          this.enemy.padding,
+          xstart
         ));
     }
 
@@ -73,12 +81,12 @@ class PixelController {
 }
 
 class Pixel {
-  constructor(col = 0, row = 0, w = 16, h = 10, pad = 5) {
+  constructor(col = 0, row = 0, w = 16, h = 10, pad = 5, xstart) {
     this.w = w;
     this.h = h;
     this.pad = pad;
     this.pos = createVector(
-      this.pad + (this.pad + this.w) + (this.w * 2 + this.pad) * col,
+      xstart + this.pad + (this.pad + this.w) + (this.w * 2 + this.pad) * col,
       this.pad + (this.h * 2 + this.pad) * row
     );
     this.speed = 3;
