@@ -10,9 +10,9 @@ class PixelController {
     this.list = [];
     this.dir = 1; // go right
     this.enemy = {
-      img: assetFactory(grids.easy1),
-      width: 22,
-      height: 14
+      imgs: [assetFactory(grids.easy1), assetFactory(grids.easy2)],
+      width: 18,
+      height: 12
     };
 
     // center the grid
@@ -27,7 +27,7 @@ class PixelController {
           this.enemy.width,
           this.enemy.height,
           xstart,
-          this.enemy.img
+          this.enemy.imgs
         ));
     }
 
@@ -35,13 +35,18 @@ class PixelController {
   }
   update() {
 //  if any of the enemys are getting too close to the edge, change direction
-    let isOutOfBounds = this.list.find(enemy => {
-      return enemy.isOutOfBounds();
-    });
+    let isOutOfBounds = false;
+
+    for (let i = 0; i < this.list.length; i++) {
+      if (this.list[i].isOutOfBounds()) {
+        isOutOfBounds = true;
+        break;
+      }
+    }
 
     if (isOutOfBounds) {
       this.dir *= -1;
-      this.list.forEach(e => { e.pos.y += this.enemy.height; });
+      this.list.forEach(e => { e.drop = true });
     }
 
     this.move();
@@ -74,13 +79,13 @@ class PixelController {
   // }
   move() {
     this.list.forEach(enemy => {
-      enemy.move(this.dir);
+      enemy.update(this.dir, this.drop);
     });
   }
 }
 
 class Pixel {
-  constructor(col = 0, row = 0, w = 16, h = 10, xstart, img) {
+  constructor(col = 0, row = 0, w = 16, h = 10, xstart, imgs) {
     this.w = w;
     this.h = h;
     this.pos = createVector(
@@ -88,24 +93,43 @@ class Pixel {
       this.h * 2 * row
     );
     this.speed = 3;
-    this.img = img;
+    this.imgs = imgs;
+    this.switch = false;
+    this.dir;
   }
   show() {
     // fill(255, 0, 200);
     // console.log(`x:${this.pos.x}, y:${this.pos.y}`);
     // rect(this.pos.x, this.pos.y, this.w * 2, this.h * 2);
-    image(this.img, this.pos.x, this.pos.y);
+    image(
+      this.imgs[this.switch ? 0 : 1],
+      this.pos.x,
+      this.pos.y
+    );
   }
-  move(dir) {
-    this.pos.x += dir * this.speed;
+  update(dir, drop) {
+    this.dir = dir;
+    if (frameCount % 30 === 0) {
+      if (!this.drop) {
+        this.pos.x += dir * this.w * 2;
+        this.switch = !this.switch;
+      }
+      else {
+        this.pos.y += this.h * 2;
+        this.drop = !this.drop;
+      }
+    }
+    // this.pos.x += dir * this.speed;
   }
   getLimit(side) {
     switch (side) {
       case "left": return this.pos.x - this.w;
-      case "right": return this.pos.x + this.h;
+      case "right": return this.pos.x + this.w;
     }
   }
   isOutOfBounds() {
-    return this.getLimit("left") <= 0 || this.getLimit("right") >= width;
+    return (this.dir === -1)
+      ? this.getLimit("left") < 0 + this.w
+      : this.getLimit("right") > width - this.w;
   }
 }

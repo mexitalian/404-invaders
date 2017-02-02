@@ -4,7 +4,7 @@ let Invaders = function(opt = {}) {
 
 	let SPACE = 32
 		, defaults = {
-			bgColor: 'white',
+			bgColor: 'grey',
 			enemyColor: 55
 		}
 		, settings = Object.assign(defaults, opt)
