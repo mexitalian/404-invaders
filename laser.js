@@ -43,7 +43,7 @@ class Laser {
     this.speed = 3;
   }
   hits(enemy) {
-    return this.pos.dist(enemy.pos) < this.w + enemy.h;
+    return this.pos.dist(enemy.pos) < this.w + enemy.w;
   }
   update() {
     this.pos.y -= this.speed;
