@@ -90,7 +90,7 @@ let Invaders = function(opt = {bgColor: 'rgba(255,255,255,0.5)'}) {
 
 	let reset = function() {
 		ship = new Ship();
-	  enemies = new PixelController(text);
+	  enemies = new PixelController(text, 12);
 		laser = new LaserController();
 	}
 

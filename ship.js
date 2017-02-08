@@ -28,5 +28,7 @@ class Ship {
       break;
     }
     return hit;
+    let last = enemies.list[enemies.list.length - 1];
+    return this.pos.y <= last.pos.y + last.h;
   }
 }
