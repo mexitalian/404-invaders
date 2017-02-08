@@ -7,6 +7,7 @@ class Ship {
     this.pos = createVector(width/2, height - this.size);
     this.speed = 3;
     this.dir = 0;
+    this.img = assetFactory(grids.ship)
   }
   update() {
     this.move();
@@ -14,7 +15,8 @@ class Ship {
   }
   show() {
     // fill(255);
-    rect(this.pos.x, this.pos.y, this.size, this.size)
+    // rect(this.pos.x, this.pos.y, this.size, this.size)
+    image(this.img, this.pos.x, this.pos.y);
   }
   move() {
     this.pos.x += this.dir * this.speed;
