@@ -38,11 +38,12 @@ class LaserController {
 class Laser {
   constructor(pos) {
     this.pos = pos.copy();
-    this.r = 4;
+    this.w = 2;
+    this.h = 4;
     this.speed = 3;
   }
   hits(enemy) {
-    return this.pos.dist(enemy.pos) < this.r + enemy.h;
+    return this.pos.dist(enemy.pos) < this.w + enemy.h;
   }
   update() {
     this.pos.y -= this.speed;
@@ -51,6 +52,6 @@ class Laser {
   show() {
     noStroke();
     // fill(50, 0, 200);
-    ellipse(this.pos.x, this.pos.y, this.r * 2);
+    rect(this.pos.x, this.pos.y, this.w, this.h);
   }
 }
