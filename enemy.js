@@ -35,11 +35,10 @@ class PixelController {
     let xstart = (width - gridWidth) / 2;
 
     for (let i = 0; i < grid.length; i++) {
-      if (grid[i])
-
-        var col = i % cols; // get the current column, reset after each column limit
-        var row = floor(i / cols); // find out which row we are on
-        var imgs = row < 1
+      if (grid[i]) {
+        let col = i % cols; // get the current column, reset after each column limit
+        let row = floor(i / cols); // find out which row we are on
+        let imgs = row < 1
           ? assets.enemy3.imgs
           : row < 3 ? assets.enemy2.imgs : assets.enemy1.imgs;
 
@@ -53,9 +52,8 @@ class PixelController {
             imgs
           )
         );
+      }
     }
-
-    this.y = this.list[0].pos.y;
   }
   update() {
 //  if any of the enemys are getting too close to the edge, change direction

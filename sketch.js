@@ -24,7 +24,7 @@ let Invaders = function(opt = {bgColor: 'rgba(255,255,255,0.5)'}) {
 	  fill(settings.enemyColor);
 		noStroke();
 	  ship = new Ship();
-	  enemies = new PixelController(text, 13);
+	  enemies = new PixelController(text, 12);
 		laser = new LaserController();
 	  // noLoop();
 	}
