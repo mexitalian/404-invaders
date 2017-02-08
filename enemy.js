@@ -59,6 +59,10 @@ class PixelController {
 //  if any of the enemys are getting too close to the edge, change direction
     let isOutOfBounds = false;
 
+    if (this.list.length === 0) {
+      game.reset();
+    }
+
     for (let i = 0; i < this.list.length; i++) {
       if (this.list[i].isOutOfBounds()) {
         isOutOfBounds = true;
@@ -94,6 +98,8 @@ class PixelController {
     }
   }
   die(i) {
+    game.score++;
+    console.log(game.score);
     this.list.splice(i, 1);
   }
   // detectCol(laser) {

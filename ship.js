@@ -23,12 +23,12 @@ class Ship {
   }
   hits(enemies) {
     let hit = false;
-    for (let i = enemies.list.length -1; i >= 0; i--) {
-      hit = this.pos.y <= enemies.list[i].pos.y + enemies.list[i].h;
-      break;
-    }
-    return hit;
+    // for (let i = enemies.list.length -1; i >= 0; i--) {
+    //   hit = this.pos.y <= enemies.list[i].pos.y + enemies.list[i].h;
+    //   break;
+    // }
+    // return hit;
     let last = enemies.list[enemies.list.length - 1];
-    return this.pos.y <= last.pos.y + last.h;
+    return this.pos.y <= last.pos.y + last.h / 2;
   }
 }

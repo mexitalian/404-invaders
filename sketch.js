@@ -14,17 +14,22 @@ let Invaders = function(opt = {bgColor: 'rgba(255,255,255,0.5)'}) {
 		, isMobile = false
 		, mobileLoop = function() {}; // empty until we know user is on mobile
 
+	this.score = 0;
+
 
 	window.setup = function() {
 	  createCanvas(800, 400);
 	  rectMode(CENTER);
 	  ellipseMode(CENTER);
 		imageMode(CENTER);
+		textAlign(CENTER);
+		textSize(18);
+		textFont('monospace');
 	  // frameRate(20);
 	  fill(settings.enemyColor);
 		noStroke();
 	  ship = new Ship();
-	  enemies = new PixelController(text, 12);
+	  enemies = new PixelController(formation, 12);
 		laser = new LaserController();
 	  // noLoop();
 	}
@@ -36,8 +41,10 @@ let Invaders = function(opt = {bgColor: 'rgba(255,255,255,0.5)'}) {
 		enemies.collision(laser);
 		enemies.update().show();
 
+		text(game.score, width - 20, height - 20);
+
 		if (ship.hits(enemies)) {
-			reset();
+			game.reset();
 		}
 
 		mobileLoop();
@@ -88,10 +95,11 @@ let Invaders = function(opt = {bgColor: 'rgba(255,255,255,0.5)'}) {
 	  }
 	}
 
-	let reset = function() {
+	this.reset = function() {
 		ship = new Ship();
-	  enemies = new PixelController(text, 12);
+	  enemies = new PixelController(formation, 12);
 		laser = new LaserController();
+		game.score = 0;
 	}
 
 }
