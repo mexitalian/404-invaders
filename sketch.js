@@ -1,6 +1,6 @@
 'use strict';
 
-let Invaders = function(opt = {}) {
+let Invaders = function(opt = {bgColor: 'rgba(255,255,255,0.5)'}) {
 
 	let SPACE = 32
 		, defaults = {
@@ -10,7 +10,10 @@ let Invaders = function(opt = {}) {
 		, settings = Object.assign(defaults, opt)
 	  , ship
 		, laser
-	  , enemies;
+	  , enemies
+		, isMobile = false
+		, mobileLoop = function() {}; // empty until we know user is on mobile
+
 
 	window.setup = function() {
 	  createCanvas(800, 400);
@@ -36,9 +39,30 @@ let Invaders = function(opt = {}) {
 		if (ship.hits(enemies)) {
 			reset();
 		}
-		assetFactory(grids.easy2);
+
+		mobileLoop();
 	}
 
+	// deviceMoved is only fired once
+	// so we can use it to attach mobile only events when needed
+	window.deviceMoved = function() {
+		if (!isMobile) {
+			window.touchStarted = function(e) {
+				e.preventDefault();
+				laser.add(new Laser(ship.pos));
+			}
+
+			mobileLoop = function() {
+				if (rotationZ > 95) {
+					ship.dir = -1
+				}
+				else if (rotationZ < 85) {
+					ship.dir = 1
+				}
+			}
+		}
+		isMobile = !isMobile;
+	}
 
 	window.keyPressed = function() {
 	  switch (keyCode) {

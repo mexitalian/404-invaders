@@ -2,7 +2,7 @@
 //     ship.js
 // ===============
 class Ship {
-  constructor(pos) {
+  constructor(baseRotationZ) {
     this.size = 20;
     this.pos = createVector(width/2, height - this.size);
     this.speed = 3;

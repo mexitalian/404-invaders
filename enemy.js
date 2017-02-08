@@ -90,7 +90,7 @@ class Pixel {
     this.h = h;
     this.pos = createVector(
       xstart + this.w + (this.w * 2) * col,
-      this.h * 2 * row
+      (this.h * 3) + (this.h * 2 * row)
     );
     this.speed = 3;
     this.imgs = imgs;
@@ -129,7 +129,7 @@ class Pixel {
   }
   isOutOfBounds() {
     return (this.dir === -1)
-      ? this.getLimit("left") < 0 + this.w
-      : this.getLimit("right") > width - this.w;
+      ? this.getLimit("left") <= 0 + this.w * 3
+      : this.getLimit("right") >= width - this.w * 4;
   }
 }
