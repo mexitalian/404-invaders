@@ -19,6 +19,10 @@ class PixelController {
       enemy2: {
         grid: grids.medium,
         imgs: [assetFactory(grids.medium, 0), assetFactory(grids.medium, 1)]
+      },
+      enemy3: {
+        grid: grids.hard,
+        imgs: [assetFactory(grids.hard, 0), assetFactory(grids.hard, 1)]
       }
     };
     let area = {
@@ -35,7 +39,9 @@ class PixelController {
 
         var col = i % cols; // get the current column, reset after each column limit
         var row = floor(i / cols); // find out which row we are on
-        var imgs = row < 3 ? assets.enemy2.imgs : assets.enemy1.imgs;
+        var imgs = row < 1
+          ? assets.enemy3.imgs
+          : row < 3 ? assets.enemy2.imgs : assets.enemy1.imgs;
 
         this.list.push(
           new Pixel(
