@@ -1,3 +1,5 @@
+"use strict";
+
 // ================
 //     enemy.js
 // ================
@@ -9,26 +11,42 @@ class PixelController {
     this.score = 0;
     this.list = [];
     this.dir = 1; // go right
-    this.enemy = {
-      imgs: [assetFactory(grids.easy1), assetFactory(grids.easy2)],
+    let assets = {
+      enemy1: {
+        grid: grids.easy,
+        imgs: [assetFactory(grids.easy, 0), assetFactory(grids.easy, 1)],
+      },
+      enemy2: {
+        grid: grids.medium,
+        imgs: [assetFactory(grids.medium, 0), assetFactory(grids.medium, 1)]
+      }
+    };
+    let area = {
       width: 18,
       height: 12
     };
 
     // center the grid
-    let gridWidth = this.cols * (this.enemy.width * 2);
+    let gridWidth = this.cols * (area.width * 2);
     let xstart = (width - gridWidth) / 2;
 
     for (let i = 0; i < grid.length; i++) {
       if (grid[i])
-        this.list.push(new Pixel(
-          i % this.cols,
-          floor(i / this.cols),
-          this.enemy.width,
-          this.enemy.height,
-          xstart,
-          this.enemy.imgs
-        ));
+
+        var col = i % cols; // get the current column, reset after each column limit
+        var row = floor(i / cols); // find out which row we are on
+        var imgs = row < 3 ? assets.enemy2.imgs : assets.enemy1.imgs;
+
+        this.list.push(
+          new Pixel(
+            col,
+            row,
+            area.width,
+            area.height,
+            xstart,
+            imgs
+          )
+        );
     }
 
     this.y = this.list[0].pos.y;

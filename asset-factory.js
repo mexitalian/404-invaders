@@ -1,17 +1,18 @@
 // Asset factory will create a bitmap-like image from a grid
-let assetFactory = function(grid, c = 55) {
+let assetFactory = function(grid, index = 0, c = 55) {
 //  will return a PImage
 let scale = 2;
+  let seq = grid.seq[index];
   let img = createImage(
     grid.cols * scale,
-    (grid.seq.length/grid.cols) * scale
+    (seq.length/grid.cols) * scale
   );
   img.loadPixels();
 
-  for (let i = 0; i < grid.seq.length; i++) {
+  for (let i = 0; i < seq.length; i++) {
     let x = i % grid.cols;
     let y = i < grid.length ? 0 : floor(i/grid.cols);
-    let c1 = grid.seq[i] ? color(c) : color('rgba(0,0,0,0)');
+    let c1 = seq[i] ? color(c) : color('rgba(0,0,0,0)');
     let xoff = x * scale;
     let yoff = y * scale;
 
