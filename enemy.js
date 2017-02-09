@@ -26,7 +26,7 @@ class PixelController {
       }
     };
     let area = {
-      width: 18,
+      width: 16,
       height: 12
     };
 
@@ -98,8 +98,7 @@ class PixelController {
     }
   }
   die(i) {
-    game.score++;
-    console.log(game.score);
+    game.score += 20;
     this.list.splice(i, 1);
   }
   // detectCol(laser) {
@@ -139,7 +138,7 @@ class Pixel {
     this.dir = dir;
     if (frameCount % 30 === 0) {
       if (!this.drop) {
-        this.pos.x += dir * this.w * 2;
+        this.pos.x += dir * (this.w / 2);
         this.switch = !this.switch;
       }
       else {

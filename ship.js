@@ -19,16 +19,19 @@ class Ship {
     image(this.img, this.pos.x, this.pos.y);
   }
   move() {
-    this.pos.x += this.dir * this.speed;
+    if (this.pos.x <= width && this.pos.x >= 0) {
+      this.pos.x += this.dir * this.speed;
+    }
+    else {
+      if (this.pos.x > width)
+        this.pos.x = width;
+
+      if (this.pos.x < 0)
+        this.pos.x = 0;
+    }
   }
   hits(enemies) {
-    let hit = false;
-    // for (let i = enemies.list.length -1; i >= 0; i--) {
-    //   hit = this.pos.y <= enemies.list[i].pos.y + enemies.list[i].h;
-    //   break;
-    // }
-    // return hit;
     let last = enemies.list[enemies.list.length - 1];
-    return this.pos.y <= last.pos.y + last.h / 2;
+    return this.pos.y <= last.pos.y + last.h;
   }
 }

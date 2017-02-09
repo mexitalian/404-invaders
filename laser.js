@@ -3,10 +3,11 @@
 // ================
 class LaserController {
   constructor() {
-    this.list = new Array()
+    this.list = new Array();
   }
   add(laser) {
-    this.list.push(laser);
+    if (this.list.length === 0) // only allow one laser at a time
+      this.list.push(laser);
   }
   remove(i) {
     this.list.splice(i, 1);
@@ -15,7 +16,6 @@ class LaserController {
     let list = this.list;
 
     if (list.length > 0) {
-
       for (let i = list.length -1; i >= 0; i--) {
         let laser = list[i];
         laser.update().show();
@@ -40,10 +40,10 @@ class Laser {
     this.pos = pos.copy();
     this.w = 2;
     this.h = 4;
-    this.speed = 3;
+    this.speed = 4;
   }
   hits(enemy) {
-    return this.pos.dist(enemy.pos) < this.w + enemy.w;
+    return this.pos.dist(enemy.pos) < this.w + enemy.w / 2;
   }
   update() {
     this.pos.y -= this.speed;

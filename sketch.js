@@ -18,13 +18,14 @@ let Invaders = function(opt = {bgColor: 'rgba(255,255,255,0.5)'}) {
 
 
 	window.setup = function() {
-	  createCanvas(800, 400);
+	  createCanvas(600, 400);
 	  rectMode(CENTER);
 	  ellipseMode(CENTER);
 		imageMode(CENTER);
 		textAlign(CENTER);
 		textSize(18);
-		textFont('monospace');
+		textFont('Courier New');
+		textStyle(BOLD);
 	  // frameRate(20);
 	  fill(settings.enemyColor);
 		noStroke();
@@ -41,7 +42,7 @@ let Invaders = function(opt = {bgColor: 'rgba(255,255,255,0.5)'}) {
 		enemies.collision(laser);
 		enemies.update().show();
 
-		text(game.score, width - 20, height - 20);
+		text(game.score, 20, 20);
 
 		if (ship.hits(enemies)) {
 			game.reset();
