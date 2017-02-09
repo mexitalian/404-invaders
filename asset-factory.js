@@ -1,3 +1,7 @@
+// =========================
+//     asset-factory.js
+// =========================
+
 // Asset factory will create a bitmap-like image from a grid
 let assetFactory = function(grid, index = 0, c = 55) {
 //  will return a PImage
