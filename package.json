@@ -1,0 +1,76 @@
+{
+  "name": "404-invaders",
+  "version": "0.1.0",
+  "description": "space invaders meets 404 page",
+  "homepage": "https://github.com/mexitalian/404-invaders#readme",
+  "author": {
+    "name": "Carlo Marasco",
+    "email": "mexitalian@gmail.com",
+    "url": "http://charlos.co.uk"
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "keywords": [
+    "404",
+    "game",
+    "space-invaders"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "coveralls": "^3.0.5",
+    "eslint": "^6.0.1",
+    "prettier": "^1.18.2",
+    "husky": "^3.0.1",
+    "lint-staged": "^9.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-config-xo": "^0.26.0",
+    "jest": "^24.8.0",
+    "rimraf": "^2.6.3"
+  },
+  "engines": {
+    "npm": ">= 4.0.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "xo",
+      "prettier"
+    ],
+    "env": {
+      "jest": true,
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": "error"
+    },
+    "plugins": [
+      "prettier"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "scripts": {
+    "pretest": "eslint .",
+    "test": "jest",
+    "build": "rimraf lib && babel --presets es2015 -d lib src --ignore src/__tests__"
+  },
+  "repository": "git@github.com:mexitalian/404-invaders.git",
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "license": "MIT"
+}

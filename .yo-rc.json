@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Carlo Marasco",
+      "authorEmail": "mexitalian@gmail.com",
+      "authorUrl": "http://charlos.co.uk"
+    }
+  }
+}
